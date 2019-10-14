@@ -9,7 +9,8 @@ class App extends Component {
   state = {
     sushis : [],
     counter : 0,
-    budget : 100
+    budget : 100,
+    moreFunds : ''
   }
 
   componentDidMount(){
@@ -24,9 +25,24 @@ class App extends Component {
     return (
       <div className="app">
         <SushiContainer sushis={this.firstFourSushis()} moreSushi={this.moreSushi} changeEaten={this.changeIsEatenAttr}/>
-        <Table emptyPlates={this.emptyPlates()} budget={this.state.budget}/>
+        <Table emptyPlates={this.emptyPlates()} budget={this.state.budget} moreFunds={this.state.moreFunds} addMoreFunds={this.addMoreFunds} newBudget={this.newBudget}/>
       </div>
     );
+  }
+
+  // add more funds
+  addMoreFunds = (e) => {
+    this.setState({ [e.target.name] : e.target.value })
+  }
+
+  // update new budget
+  newBudget = (e) => {
+    e.preventDefault()
+    let newBud = this.state.budget + parseInt(this.state.moreFunds, 10);
+    this.setState({ 
+      budget : newBud,
+      moreFunds : ''
+    })
   }
 
   // set isEaten to false for every sushi in the beginning
@@ -43,7 +59,7 @@ class App extends Component {
   changeIsEatenAttr = (sushiArg) => {
     let newSushis = [...this.state.sushis] ;
     let foundSushi = newSushis.find(sushi => sushi.id === sushiArg.id) ;
-    let newBudget = this.state.budget - foundSushi.price ;
+    let newBudget = this.state.budget + this.state.moreFunds - foundSushi.price ;
     if ( newBudget >= 0 && !foundSushi.isEaten){
       foundSushi.isEaten =  true;
       this.setState({ 
@@ -55,7 +71,10 @@ class App extends Component {
 
   // load next four sushi
   moreSushi = () => {
-    let newCounter = this.state.counter + 4 ;
+    const sushiCount = this.state.sushis.length ;
+    let newCounter;
+    let temp = this.state.counter + 4 ;
+    temp >= sushiCount ? newCounter = 0 : newCounter = temp
     this.setState({ counter : newCounter })
   }
 

@@ -12,7 +12,14 @@ const Table = (props) => {
     <Fragment>
       <h1 className="remaining">
         You have: ${props.budget} remaining!
+        <form onSubmit={props.newBudget}>
+          <label>Would you like to add more funds?</label>
+          <input name="moreFunds" type='number' min='0' value={props.moreFunds} placeholder="How much?" onChange={props.addMoreFunds}></input>
+          <input type='submit'></input>
+        </form>
       </h1>
+  
+
       <div className="table">
         <div className="stack">
           {

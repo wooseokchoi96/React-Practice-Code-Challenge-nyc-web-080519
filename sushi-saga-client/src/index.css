@@ -29,8 +29,8 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   margin: auto;
-  height: 100px;
-  width: 100px;
+  height: 145px;
+  width: 110px;
 }
 
 .empty-plate {
@@ -39,8 +39,8 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   transform: rotateX(50deg);
-  height: 100px;
-  width: 100px;
+  height: 145px;
+  width: 110px;
   position: absolute;
   left: 300px;
 }
@@ -76,4 +76,8 @@ body {
   height: 428px;
   width: 700px;
   margin: auto;
+}
+
+#sushiImg {
+  display: block;
 }
